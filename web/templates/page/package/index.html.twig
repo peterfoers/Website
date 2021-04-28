@@ -6,6 +6,7 @@
 
 {% block scripts %}
     {{ encore_entry_script_tags('pkg_search') }}
+    {{ encore_entry_script_tags('rslt_page') }}
 {% endblock %}
 
 {% block pageBanner %}
@@ -60,6 +61,7 @@
             <!--<div class="col-6 mx-auto text-center mb-3"><h5>Most Downloaded Packages</h5></div>-->
         </div>
         <div class="row justify-content-around">
+            <div id="rslt_page">This is where the Vue goes</div>
             {% for package in packages %}
                 {% set version = package.getVersions()|last %}
                 {% set repotype = version.getRepoType() %}
