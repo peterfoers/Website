@@ -1,10 +1,10 @@
 <template>
-  <div>
-    <h1>This is the actual Vue</h1>
-    <div v-for="card in packageList" :key="card.id">
-      <resultCard :page="card"></resultCard>
+  <div class="row justify-content-around" v-if="packageList">
+    <div class="col-12 col-md-6 col-lg-4 p-3" v-for="page in packageList" :key="page.id" >
+        <resultCard :page="page"></resultCard>
     </div>
   </div>
+  <div v-else>Loading...</div>
 </template>
 
 <script>
@@ -35,7 +35,5 @@ export default  {
 </script>
 
 <style>
-h1 {
-  border: 2px dashed purple;
-}
+
 </style>

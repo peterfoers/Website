@@ -60,8 +60,9 @@
         <div class="row">
             <!--<div class="col-6 mx-auto text-center mb-3"><h5>Most Downloaded Packages</h5></div>-->
         </div>
+        <div id="rslt_page"></div>
         <div class="row justify-content-around">
-            <div id="rslt_page">This is where the Vue goes</div>
+            
             {% for package in packages %}
                 {% set version = package.getVersions()|last %}
                 {% set repotype = version.getRepoType() %}
