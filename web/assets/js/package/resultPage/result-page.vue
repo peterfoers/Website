@@ -26,7 +26,14 @@ export default  {
       console.log('mounted')
       axios.post('/api/packages/list').then((response) => {
         console.log(response)
-        this.packageList = response.data.packages
+        response.data.packages.forEach(({ id, display_name, repo, description, downloads, avg_rating, developers }) => { 
+          var repoType = repo.repo_type
+          var devs = []
+          developers.forEach(({ id, name }) => {
+              devs.push({ id, name }) 
+          })
+          this.packageList.push({ id, display_name, repoType, description, downloads, avg_rating, devs})
+        })
       }, (error) => {
         console.log(error)
       })

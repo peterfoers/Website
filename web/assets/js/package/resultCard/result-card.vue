@@ -28,7 +28,7 @@
                     {% endif %}-->
                 </div>
 
-                <div class="mt-5" v-if="page.developers">
+                <div class="mt-5" v-if="page.devs">
                     Developers
                     <ul v-for="group in page.developers" :key="group.id">
                         <li><a :href="'/group/' + group.id">{{ group.name }}</a></li>
@@ -54,7 +54,7 @@ export default {
     props: [ 'page' ],
     computed: {
         iconsource: function() {
-            let type = this.page.repo.repo_type
+            let type = this.page.repo_type
             if ( type == 'gpm') {
                 return "/images/partners/gpm.png"
             } else if ( type == 'vipm' ) {
