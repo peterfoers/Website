@@ -19,13 +19,11 @@ export default  {
     },
     data() {
       return {
-        packageList: null
+        packageList: []
       }
     },
-    mounted() {
-      console.log('mounted')
-      axios.post('/api/packages/list').then((response) => {
-        console.log(response)
+    created() {
+      axios.get('/api/packages/list').then((response) => {
         response.data.packages.forEach(({ id, display_name, repo, description, downloads, avg_rating, developers }) => { 
           var repoType = repo.repo_type
           var devs = []
