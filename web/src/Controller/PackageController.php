@@ -30,6 +30,7 @@ class PackageController extends AbstractController
 
         return $this->render('page/package/index.html.twig', [
             'packages' => $results['packages'],
+            'packagesJSON' => json_encode($results['packages'])
         ]);
     }
     

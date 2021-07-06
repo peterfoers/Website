@@ -4,6 +4,7 @@
 
 {% block stylesheets %}
     {{ encore_entry_link_tags('pkg_search') }}
+    {{ encore_entry_link_tags('rslt_page') }}
 {% endblock %}
 
 {% block scripts %}
@@ -62,66 +63,9 @@
         <div class="row">
             <!--<div class="col-6 mx-auto text-center mb-3"><h5>Most Downloaded Packages</h5></div>-->
         </div>
-        <div id="rslt_page"></div>
-        <div class="row justify-content-around">
-            
-            {% for package in packages %}
-                {% set version = package.getVersions()|last %}
-                {% set repotype = version.getRepoType() %}
-
-                <div class="col-12 col-md-6 col-lg-4 p-3">
-                    <div class="card">
-                        <a class="pkg-link" href="/package/{{package.id}}">
-                            <div class="row m-0 card-header p-3">
-                                <div class="col package-name align-self-center">
-                                    {{ package.getDisplayName() }}
-                                </div>
-                                <div class="col-auto p-0 align-self-center">
-                                    {% if repotype == 'VIPM' %}
-                                        <img src="/images/partners/vipm.png" class="repo-type">
-                                    {% elseif repotype == 'GPM' %}
-                                        <img src="/images/partners/gpm.png" class="repo-type">
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </a>
-                        <div class="p-2">
-                            <div class="mt-5">
-                                {% set desc = package.description|length > 150 ? package.description|slice(0, 150) ~ '…' : package.description %}
-                                {{ desc | striptags }}
-                            </div>
-
-                            <div class="mt-5">
-                                {% if package.downloads > 0 %}
-                                    <br><br>
-                                    Downloads: {{ package.downloads }}<br>
-                                {% endif %}
-
-                                {% if package.AvgRating >= 0 %}
-                                    Rating: {{ package.AvgRating < 0 ? 'None' : package.AvgRating }}<br>
-                                {% endif %}
-                            </div>
-
-                            {% if not package.developers.isEmpty() %}
-                                <div class="mt-5">
-                                    Developers
-                                    <ul>
-                                        {% for group in package.developers %}
-                                            {% if group.getPersonalUser() is null %}
-                                                {# normal group of users #}
-                                                <li><a href="/group/{{ group.id }}">{{ group.getName() }}</a></li>
-                                            {% else %}
-                                                {# single user personal dev group #}
-                                                <li><a href="/user/{{ group.getPersonalUser().id }}">{{ group.getPersonalUser().getDisplayName() }}</a></li>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </ul>
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
+        <ResultPage list="{{ packagesJSON }}"></ResultsPage>
     </div>
+    <script>
+    var packagesJSON = {{ packagesJSON|raw }};
+</script>
 {% endblock %}

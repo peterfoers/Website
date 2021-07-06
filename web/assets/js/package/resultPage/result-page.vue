@@ -14,6 +14,7 @@ import resultCard from '../resultCard/result-card.vue'
 
 export default  {
     id: "ResultPage",
+    props: [ 'list' ],
     components: {
       resultCard
     },
@@ -23,18 +24,19 @@ export default  {
       }
     },
     created() {
-      axios.get('/api/packages/list').then((response) => {
-        response.data.packages.forEach(({ id, display_name, repo, description, downloads, avg_rating, developers }) => { 
-          var repoType = repo.repo_type
-          var devs = []
-          developers.forEach(({ id, name }) => {
-              devs.push({ id, name }) 
-          })
-          this.packageList.push({ id, display_name, repoType, description, downloads, avg_rating, devs})
-        })
-      }, (error) => {
-        console.log(error)
-      })
+      this.packageList = JSON.parse(this.list)
+      // axios.get('/api/packages/list').then((response) => {
+      //   response.data.packages.forEach(({ id, display_name, repo, description, downloads, avg_rating, developers }) => { 
+      //     var repoType = repo.repo_type
+      //     var devs = []
+      //     developers.forEach(({ id, name }) => {
+      //         devs.push({ id, name }) 
+      //     })
+      //     this.packageList.push({ id, display_name, repoType, description, downloads, avg_rating, devs})
+      //   })
+      // }, (error) => {
+      //   console.log(error)
+      // })
     }
 }
 </script>

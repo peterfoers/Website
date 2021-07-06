@@ -16,4 +16,9 @@ new Vue({
     render: h => h(VersionDD)
 });
 
+new Vue({
+    el: '#ResultPage',
+    render: h => h(ResultPage)
+});
+
 console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
